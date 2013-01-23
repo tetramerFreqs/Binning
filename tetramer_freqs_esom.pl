@@ -79,7 +79,7 @@ print $seqfile;
 $lrnfile = "Tetra_".$seqfile."_$min_length\.lrn";
 $namesfile = "Tetra_".$seqfile."_$min_length\.names";
 $classfile = "Tetra_".$seqfile."_$min_length\.cls";
-$reffile= "Tetra_".$seqfile."_$min_length_$window_size\.fasta";
+$reffile= "Tetra_".$seqfile."_".$min_length."_".$window_size."_split.fasta";
 
 #$window_size = 5000;
 
