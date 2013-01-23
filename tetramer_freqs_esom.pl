@@ -43,8 +43,9 @@
 
 
 use Getopt::Long;
+use File::Basename;
 
-my $version=$0." v1.0.2";
+my $version=$0." v1.0.3";
 my $sfile; #fasta file, may include X:s and N:s
 my $annotationfile; #full contig name in left, annotation in right, column. headers (whatever) on first line 
 my $min_length = 2500; #Minimal length (in nt) of input contig to be included in output
@@ -71,14 +72,14 @@ print "\n############### TetraNucleotide Frequencies ##################\n";
 print "Minimum length (in bases) of input contig to be included in output:\n";
 print "$min_length\n";
 print "Window Size:\n$window_size\n";
-@seqfile=split(/\./, $sfile);
-# print $seqfile[0];
+my $seqfile = basename($sfile, ".fasta");
+print $seqfile;
 #!!! Program will automatically create outfiles called (whatever) infile.lrn and infile.names (and overwrite existing) !!!
 
-$lrnfile = "Tetra_".$seqfile[0]."_$min_length\.lrn";
-$namesfile = "Tetra_".$seqfile[0]."_$min_length\.names";
-$classfile = "Tetra_".$seqfile[0]."_$min_length\.cls";
-$reffile= "Tetra_".$seqfile[0]."_$min_length_$window_size\.fasta";
+$lrnfile = "Tetra_".$seqfile."_$min_length\.lrn";
+$namesfile = "Tetra_".$seqfile."_$min_length\.names";
+$classfile = "Tetra_".$seqfile."_$min_length\.cls";
+$reffile= "Tetra_".$seqfile."_$min_length_$window_size\.fasta";
 
 #$window_size = 5000;
 
@@ -150,16 +151,13 @@ sub make_names_file {
 }
 
 sub make_class_file {
-    $line = 0;
     open (INFILE, $annotationfile) || die ("can't open infile!");
     while (<INFILE>) {
-        $line++;
-        if ($line > 1) {
-            chomp;
-            @fields = split(/\t/, $_);
-            $fields[0] =~ s/\s+$//;
-            $class{$fields[0]} = $fields[2];
-        }
+        next if $_=~ /^#/;
+        chomp;
+        @fields = split(/\t/, $_);
+        $fields[0] =~ s/\s+$//;
+        $class{$fields[0]} = $fields[2];
     }
     close (INFILE);
     print "printing class file: $classfile\n";
