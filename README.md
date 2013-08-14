@@ -9,8 +9,8 @@ How to ESOM?
 
 These instructions are for ESOM-based for binning: see http://databionic-esom.sourceforge.net/ for software download and manual.
 
-*1.	Generate input files.*
-
+1.	Generate input files.
+-------------------------
 	1.	Use the "esomWrapper.pl" script to create the relevant input files for ESOM. In order to run this script, you'll need to have all your sequences(in fasta format) files with the same extension in the same folder. For example:
 	perl esomWrapper.pl -path fasta_folder -ext fa
 	
@@ -26,8 +26,8 @@ These instructions are for ESOM-based for binning: see http://databionic-esom.so
 	3. These files are generated with Anders Anderssons perl script "tetramer_freqs _esom.pl" which needs to be in the same folder as the "esomWrapper.pl". To see how to use the "tetramer_freqs _esom.pl" independent of the wrapper, type:
 	perl tetramer_freqs _esom.pl -h
 
-*2.	Run ESOM*
-
+2.	Run ESOM
+------------
 	1. on you termial, run w/ following command from anywhere (X11 must be enabled):
 		./esomana
 
@@ -44,8 +44,8 @@ These instructions are for ESOM-based for binning: see http://databionic-esom.so
 		- Hit 'START' -- training will take 10 minutes to many hours depending on the size of the data set and parameters used.
 
 	6. Analyzing the output:
-		- Best viewed (see VIEW tab) with UMatrix background, tiled display.  Use Zoom, Color, Bestmatch size to get desired view.  Also viewing without data points drawn (uncheck �Draw bestmatches�) helps to see the underlying data structure.
+		- Best viewed (see VIEW tab) with UMatrix background, tiled display.  Use Zoom, Color, Bestmatch size to get desired view.  Also viewing without data points drawn (uncheck "Draw bestmatches") helps to see the underlying data structure.
 		- Use CLASSES tab to rename and recolor classes.
 		- To select a region of the map, go to DATA tab then draw a shape with mouse (holding left click), close it with right click.  Data points will be selected and displayed in DATA tab.
-		- To assign data points to bins, use the CLASS MASK tab to draw a class mask (e.g. using the data structure as a guide � see also �contours� box in VIEW tab which might help to delineate bins) then > Tools > Classify.  This will assign each data point to a class (bin).  The new .cls file can be saved for further analysis (along with .names file which has the window IDs).
+		- To assign data points to bins, use the CLASS MASK tab to draw a class mask (e.g. using the data structure as a guide -- see also "contours" box in VIEW tab which might help to delineate bins) then > Tools > Classify.  This will assign each data point to a class (bin).  The new .cls file can be saved for further analysis (along with .names file which has the window IDs).
 		Note: to load a saved project: File > load .wts
