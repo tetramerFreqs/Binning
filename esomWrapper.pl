@@ -12,6 +12,13 @@
 		- Run the tetramer frequency script on the files;
 		- Train the ESOM (REQUIRED: ESOM v1.1)
 
+=head2 Dependencies
+
+	As such there are no external perl module dependancies but this script is a wrapper which formats inputs runs other scripts, they are:
+	tetramer_freqs_esom.pl - To calculate the tetramer frequencies of your contigs
+	esomCodonMod.pl - To remove the tetramers containing stop codons from the analysis
+	esomTrain.pl - To train the ESOM and generate the map. This step requires that ESOM version 1.1 be installed.
+
 =head1 USAGE
 
 	perl esomWrapper.pl -path Folder_Path -ext extension_of_files
@@ -87,6 +94,8 @@ GetOptions(
 
 print "## ESOM Wrapper version: $version ##\n";
 die "[ERROR: $0] Folder Path Required! See $0 -h for help on the usage" if !$path;
+my @files=<$path/*.$ext>;
+die "[ERROR] Can't find \"$path\"\nPlease check that the path exist or that you have sufficient privilages.\n" if (scalar(@files)==0);
 
 my $annotationFile=$prefix.".ann";
 my $concatenatedFasta=$prefix.".".$ext;
@@ -126,9 +135,6 @@ my $esomTrain=File::Spec->catfile($scripts,"esomTrain.pl");
 ###
 
 die "Can't find the required scripts, please provide the location using the '-scripts' flag\n" unless (-e $tetramerScript);
-
-my @files=<$path/*.$ext>;
-
 #$|++;
 
 open(FASTA, ">".$catFasta) || die $!;
