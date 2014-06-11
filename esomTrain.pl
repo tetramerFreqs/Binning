@@ -10,9 +10,9 @@
 
 =head1 Usage
 
-	perl esomTrain.pl -lrn esom.lrn -cls esom.cls -rows #1 -cols #2
+	perl esomTrain.pl -lrn esom.lrn -cls esom.cls -scripts ESOMdir -rows #1 -cols #2 
 	OR
-	perl esomTrain.pl -lrn esom.lrn -cls esom.cls -rows #1 -cols #2 -info file.info -names esom.names
+	perl esomTrain.pl -lrn esom.lrn -cls esom.cls -scripts ESOMdir -rows #1 -cols #2 -info file.info -names esom.names
 
 =head2 Required options
 
@@ -20,7 +20,8 @@
 	-cls	[characters]	*.cls file produced by the tetramer frequency script
 	-rows	[integer]	number of rows in the ESOM grid; vertical size of the map
 	-cols	[integer]	number of columns in the ESOM grid; horizontal size of the map
-
+	-scripts [characters]   Directory of ESOM
+	
 	NOTE:	The product of rows and columns, i.e. the number of neurons should be at least 1K neurons.
 	The ratio of rows and columns should be significantly different from unity.
 
