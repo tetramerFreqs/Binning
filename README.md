@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/16889/tetramerFreqs/Binning.svg)](https://zenodo.org/badge/latestdoi/16889/tetramerFreqs/Binning)
+
 Binning
 =======
 
