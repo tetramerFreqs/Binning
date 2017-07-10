@@ -281,7 +281,7 @@ sub parseFasta{
 		}
 		elsif($flag==1){
 			$header=$prevHeader."_".$header;
-			$flag==0;
+			$flag =0;
 			$prevHeader="";
 		}
 
