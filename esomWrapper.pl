@@ -1,4 +1,4 @@
-#! /usr/bin/perl
+#!/usr/bin/env perl
 
 =head1 DESCRIPTION
 
@@ -54,6 +54,8 @@ use strict;
 use Getopt::Long;
 use File::Spec;
 use File::Basename;
+use FindBin qw($Bin);
+
 #use POSIX ":sys_wait_h";
 
 my $scripts;
@@ -94,32 +96,29 @@ die "[ERROR: $0] Folder Path Required! See $0 -h for help on the usage" if !$pat
 my @files=<$path/*.$ext>;
 die "[ERROR] Can't find \"$path\"\nPlease check that the path exist or that you have sufficient privilages.\n" if (scalar(@files)==0);
 
-my $annotationFile=$prefix.".ann";
+my $annotationFile   =$prefix.".ann";
 my $concatenatedFasta=$prefix.".".$ext;
-my $logFile=$prefix.".log";
+my $logFile          =$prefix.".log";
+
 if (-d $outDir){
-	die "[ERROR: $0]$outDir already exists!\n";
-}
-else{
-	mkdir($outDir, 0755);
+    die "[ERROR: $0]$outDir already exists!\n";
+} else {
+    mkdir($outDir, 0755);
 }
 
-my $ann=File::Spec->catfile( $outDir, $annotationFile);
-my $catFasta=File::Spec->catfile( $outDir, $concatenatedFasta);
-my $log=File::Spec->catfile( $outDir, $logFile);
+my $ann     = File::Spec->catfile( $outDir, $annotationFile);
+my $catFasta= File::Spec->catfile( $outDir, $concatenatedFasta);
+my $log     = File::Spec->catfile( $outDir, $logFile);
 open(LOG, ">".$log) || die $!;
 
-if ((! $scripts) || (! -d $scripts)){
-	if (-d "/geomicro/data1/COMMON/scripts/wrappers/ESOM/"){
-		$scripts="/geomicro/data1/COMMON/scripts/wrappers/ESOM/";	
-	}
-	elsif(-e "tetramer_freqs_esom.pl"){
-		$scripts=`pwd`;
-		chomp $scripts;
-	}
-	else{
-		die "[ERROR: $0] Could not locate helper scripts: 'tetramer_freqs_esom.pl', 'esomCodonMod.pl' and 'esomTrain.pl', please provide the location using '-scripts' flag\n";
-	}
+if ( ! $scripts || ! -d $scripts ) {
+    $scripts=$Bin;
+	
+    print("scripts are $scripts");
+    
+    unless (-e "$scripts/tetramer_freqs_esom.pl"){
+	die "[ERROR: $0] Could not locate helper scripts: 'tetramer_freqs_esom.pl', 'esomCodonMod.pl' and 'esomTrain.pl', please provide the location using '-scripts' flag\n";
+    }
 }
 
 print "# Setting scripts folder location as:\n$scripts\n";
